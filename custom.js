@@ -3,25 +3,16 @@
 var triangles = new Array();
 
 Triangle.prototype = {
-	// Rotates the triangle.
-	rotate : function(x) {
-		this.triPath.rotate(x,this.center);
-	},
 	// Follows the mouse cursor.
 	follow : function(a,b) {
-		// Gradient
-		var grad = (a.y - b.y) / (a.x - b.x);
 		// Distance
-		var first = Math.pow((b.x - a.x),2);
-		var second = Math.pow((b.y - a.y),2);
-		var d = Math.sqrt(first + second);
+		var d = Math.sqrt(Math.pow((b.x - a.x),2) + Math.pow((b.y - a.y),2));
 		// Segment ratio
 		var r = this.size/d;
 		var newX = (r * b.x) + ((1 - r) * a.x);
 		var newY = (r * b.y) + ((1 - r) * a.y);
-		var newPoint = new Point(newX,newY);
 		this.triPath.removeSegments();
-		this.draw(newPoint);
+		this.draw(new Point(newX,newY));
 	},
 	// Draws the triangle onto the canvas.
 	draw : function(point) {
